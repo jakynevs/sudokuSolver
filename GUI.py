@@ -15,6 +15,8 @@ class Grid:
         [1, 2, 0, 0, 0, 7, 4, 0, 0],
         [0, 4, 9, 2, 0, 6, 0, 0, 7]
     ]
+    
+    
 
     def __init__(self, rows, cols, width, height, win):
         self.rows = rows
@@ -51,12 +53,12 @@ class Grid:
     def draw(self):
         # Draw Grid Lines
         gap = self.width / 9
-        for i in range(self.rows+1):
+        for i in range(self.rows + 1):
             if i % 3 == 0 and i != 0:
                 thick = 4
             else:
                 thick = 1
-            pygame.draw.line(self.win, (0,0,0), (0, i*gap), (self.width, i*gap), thick)
+            pygame.draw.line(self.win, (0,0,0), (0, i * gap), (self.width, i * gap), thick)
             pygame.draw.line(self.win, (0, 0, 0), (i * gap, 0), (i * gap, self.height), thick)
 
         # Draw Cubes
@@ -144,7 +146,17 @@ class Grid:
                 pygame.time.delay(100)
 
         return False
-
+    
+    def reset(self):
+        # clear temp values and resetting board
+        for i in range(self.rows):
+            for j in range(self.cols):
+                self.cubes[i][j].set_temp(0)
+                self.cubes[i][j].set(self.board[i][j])
+        
+        self.selected = None
+        
+        self.update_model()
 
 class Cube:
     rows = 9
@@ -168,13 +180,14 @@ class Cube:
 
         if self.temp != 0 and self.value == 0:
             text = fnt.render(str(self.temp), 1, (128,128,128))
-            win.blit(text, (x+5, y+5))
+            win.blit(text, (x + 5, y + 5))
         elif not(self.value == 0):
             text = fnt.render(str(self.value), 1, (0, 0, 0))
-            win.blit(text, (x + (gap/2 - text.get_width()/2), y + (gap/2 - text.get_height()/2)))
+            win.blit(text, (x + (gap / 2 - text.get_width()/2), y + (gap / 2 - text.get_height() / 2)))
 
         if self.selected:
-            pygame.draw.rect(win, (255,0,0), (x,y, gap ,gap), 3)
+            pygame.draw.rect(win, (255,0,0), (x, y, gap, gap), 3)
+        
 
     def draw_change(self, win, g=True):
         fnt = pygame.font.SysFont("comicsans", 40)
@@ -269,105 +282,132 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
             if event.type == pygame.KEYDOWN:
-                i, j = board.selected
+                if board.selected:
+                    i, j = board.selected
 
-                if event.key == pygame.K_1:
-                    if board.cubes[i][j].temp != 1:
-                        key = 1
-                    else:
-                        strikes = confirm_num(strikes, board, i, j)
-                if event.key == pygame.K_2:
-                    if board.cubes[i][j].temp != 2:
-                        key = 2
-                    else:
-                        strikes = confirm_num(strikes, board, i, j)
-                if event.key == pygame.K_3:
-                    if board.cubes[i][j].temp != 3:
-                        key = 3
-                    else:
-                        strikes = confirm_num(strikes, board, i, j)                    
-                if event.key == pygame.K_4:
-                    if board.cubes[i][j].temp != 4:
-                        key = 4
-                    else:
-                        strikes = confirm_num(strikes, board, i, j)
-                if event.key == pygame.K_5:
-                    if board.cubes[i][j].temp != 5:
-                        key = 5
-                    else:
-                        strikes = confirm_num(strikes, board, i, j)
-                if event.key == pygame.K_6:
-                    if board.cubes[i][j].temp != 6:
-                        key = 6
-                    else:
-                        strikes = confirm_num(strikes, board, i, j)
-                if event.key == pygame.K_7:
-                    if board.cubes[i][j].temp != 7:
-                        key = 7
-                    else:
-                        strikes = confirm_num(strikes, board, i, j)
-                if event.key == pygame.K_8:
-                    if board.cubes[i][j].temp != 8:
-                        key = 8
-                    else:
-                        strikes = confirm_num(strikes, board, i, j)
-                if event.key == pygame.K_9:
-                    if board.cubes[i][j].temp != 9:
-                        key = 9
-                    else:
-                        strikes = confirm_num(strikes, board, i, j)
-                if event.key == pygame.K_KP1:
-                    if board.cubes[i][j].temp != 1:
-                        key = 1
-                    else:
-                        strikes = confirm_num(strikes, board, i, j)
-                if event.key == pygame.K_KP2:
-                    if board.cubes[i][j].temp != 2:
-                        key = 2
-                    else:
-                        strikes = confirm_num(strikes, board, i, j)
-                if event.key == pygame.K_KP3:
-                    if board.cubes[i][j].temp != 3:
-                        key = 3
-                    else:
-                        strikes = confirm_num(strikes, board, i, j)
-                if event.key == pygame.K_KP4:
-                    if board.cubes[i][j].temp != 4:
-                        key = 4
-                    else:
-                        strikes = confirm_num(strikes, board, i, j)
-                if event.key == pygame.K_KP5:
-                    if board.cubes[i][j].temp != 5:
-                        key = 5
-                    else:
-                        strikes = confirm_num(strikes, board, i, j)
-                if event.key == pygame.K_KP6:
-                    if board.cubes[i][j].temp != 6:
-                        key = 6
-                    else:
-                        strikes = confirm_num(strikes, board, i, j)
-                if event.key == pygame.K_KP7:
-                    if board.cubes[i][j].temp != 7:
-                        key = 7
-                    else:
-                        strikes = confirm_num(strikes, board, i, j)
-                if event.key == pygame.K_KP8:
-                    if board.cubes[i][j].temp != 8:
-                        key = 8
-                    else:
-                        strikes = confirm_num(strikes, board, i, j)
-                if event.key == pygame.K_KP9:
-                    if board.cubes[i][j].temp != 9:
-                        key = 9
-                    else:
-                        strikes = confirm_num(strikes, board, i, j)
+                    if event.key == pygame.K_1:
+                        if board.cubes[i][j].temp != 1:
+                            key = 1
+                        else:
+                            strikes = confirm_num(strikes, board, i, j)
+                    if event.key == pygame.K_2:
+                        if board.cubes[i][j].temp != 2:
+                            key = 2
+                        else:
+                            strikes = confirm_num(strikes, board, i, j)
+                    if event.key == pygame.K_3:
+                        if board.cubes[i][j].temp != 3:
+                            key = 3
+                        else:
+                            strikes = confirm_num(strikes, board, i, j)                    
+                    if event.key == pygame.K_4:
+                        if board.cubes[i][j].temp != 4:
+                            key = 4
+                        else:
+                            strikes = confirm_num(strikes, board, i, j)
+                    if event.key == pygame.K_5:
+                        if board.cubes[i][j].temp != 5:
+                            key = 5
+                        else:
+                            strikes = confirm_num(strikes, board, i, j)
+                    if event.key == pygame.K_6:
+                        if board.cubes[i][j].temp != 6:
+                            key = 6
+                        else:
+                            strikes = confirm_num(strikes, board, i, j)
+                    if event.key == pygame.K_7:
+                        if board.cubes[i][j].temp != 7:
+                            key = 7
+                        else:
+                            strikes = confirm_num(strikes, board, i, j)
+                    if event.key == pygame.K_8:
+                        if board.cubes[i][j].temp != 8:
+                            key = 8
+                        else:
+                            strikes = confirm_num(strikes, board, i, j)
+                    if event.key == pygame.K_9:
+                        if board.cubes[i][j].temp != 9:
+                            key = 9
+                        else:
+                            strikes = confirm_num(strikes, board, i, j)
+                    if event.key == pygame.K_KP1:
+                        if board.cubes[i][j].temp != 1:
+                            key = 1
+                        else:
+                            strikes = confirm_num(strikes, board, i, j)
+                    if event.key == pygame.K_KP2:
+                        if board.cubes[i][j].temp != 2:
+                            key = 2
+                        else:
+                            strikes = confirm_num(strikes, board, i, j)
+                    if event.key == pygame.K_KP3:
+                        if board.cubes[i][j].temp != 3:
+                            key = 3
+                        else:
+                            strikes = confirm_num(strikes, board, i, j)
+                    if event.key == pygame.K_KP4:
+                        if board.cubes[i][j].temp != 4:
+                            key = 4
+                        else:
+                            strikes = confirm_num(strikes, board, i, j)
+                    if event.key == pygame.K_KP5:
+                        if board.cubes[i][j].temp != 5:
+                            key = 5
+                        else:
+                            strikes = confirm_num(strikes, board, i, j)
+                    if event.key == pygame.K_KP6:
+                        if board.cubes[i][j].temp != 6:
+                            key = 6
+                        else:
+                            strikes = confirm_num(strikes, board, i, j)
+                    if event.key == pygame.K_KP7:
+                        if board.cubes[i][j].temp != 7:
+                            key = 7
+                        else:
+                            strikes = confirm_num(strikes, board, i, j)
+                    if event.key == pygame.K_KP8:
+                        if board.cubes[i][j].temp != 8:
+                            key = 8
+                        else:
+                            strikes = confirm_num(strikes, board, i, j)
+                    if event.key == pygame.K_KP9:
+                        if board.cubes[i][j].temp != 9:
+                            key = 9
+                        else:
+                            strikes = confirm_num(strikes, board, i, j)
+                    
+                    if event.key == pygame.K_UP:
+                        if i > 0:
+                            board.select(i - 1, j)
+                            key = None
+                    if event.key == pygame.K_DOWN:
+                        if i < 8:
+                            board.select(i + 1, j)
+                            key = None
+                    if event.key == pygame.K_LEFT:
+                        if j > 0:
+                            board.select(i, j - 1)
+                            key = None
+                    if event.key == pygame.K_RIGHT:
+                        if j < 8:
+                            board.select(i, j + 1)
+                            key = None
+
                 if event.key == pygame.K_DELETE or event.key == pygame.K_BACKSPACE:
                     board.clear()
                     key = None
 
+                if event.key == pygame.K_r:
+                    board.reset()
+                
+                if event.key == pygame.K_RETURN:
+                    strikes = confirm_num(strikes, board, i , j)
+                
                 if event.key == pygame.K_SPACE:
                     board.solve_gui()
 
+                redraw_window(win, board, play_time, strikes)
+                pygame.display.update()
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
@@ -376,7 +416,6 @@ def main():
                     board.select(clicked[0], clicked[1])
                     key = None
         
-
         if board.selected and key != None:
             board.sketch(key)
         
