@@ -399,6 +399,9 @@ def main():
 
                 if event.key == pygame.K_r:
                     board.reset()
+                    start = time.time()
+                    strikes = 0
+
                 
                 if event.key == pygame.K_RETURN:
                     strikes = confirm_num(strikes, board, i , j)
