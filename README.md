@@ -32,5 +32,3 @@ sudoku.py
 The game tracks incorrect number placements. Each time you confirm an incorrect number, you'll receive a strike. Keep an eye on the number of strikes to gauge the difficulty you're having with the current puzzle.
 
 ## Enjoy the Game
-
-Enjoy playing Sudoku and challenge yourself! Whether you're a beginner or an expert, this game is a great way to improve your puzzle-solving skills.
