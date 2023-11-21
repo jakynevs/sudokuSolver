@@ -1,6 +1,6 @@
 # Sudoku Game
 
-This Sudoku game is a Python-based puzzle game built with Pygame. It offers an interactive and graphical way to play Sudoku, with the ability to solve the puzzles automatically.
+This Sudoku game is a Python-based puzzle game built with Pygame. It offers an interactive and graphical way to play Sudoku, with four levels of difficulty. There is also the ability to 'cheat' and solve the puzzles automatically.
 
 ## Installation
 
