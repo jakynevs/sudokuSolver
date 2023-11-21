@@ -4,7 +4,7 @@ import time
 pygame.font.init()
 
 class Grid:
-    board = [
+    beginner = [
         [7, 8, 0, 4, 0, 0, 1, 2, 0],
         [6, 0, 0, 0, 7, 5, 0, 0, 9],
         [0, 0, 0, 6, 0, 1, 0, 7, 8],
@@ -15,17 +15,61 @@ class Grid:
         [1, 2, 0, 0, 0, 7, 4, 0, 0],
         [0, 4, 9, 2, 0, 6, 0, 0, 7]
     ]
+    easy = [
+        [0, 0, 0, 1, 0, 0, 0, 0, 6],
+        [0, 0, 0, 0, 3, 7, 0, 1, 5],
+        [0, 0, 0, 0, 5, 4, 0, 0, 8],
+        [0, 0, 3, 0, 2, 0, 7, 0, 0],
+        [0, 0, 2, 5, 0, 9, 0, 0, 0],
+        [1, 0, 6, 0, 0, 8, 2, 0, 4],
+        [0, 0, 0, 0, 4, 0, 6, 9, 0],
+        [0, 7, 9, 0, 0, 6, 0, 8, 0],
+        [0, 0, 8, 0, 0, 3, 1, 4, 2]
+    ]
+    medium = [
+        [0, 1, 4, 2, 0, 0, 0, 0, 0],
+        [0, 0, 3, 4, 9, 1, 0, 0, 0],
+        [0, 0, 0, 7, 8, 0, 0, 5, 0],
+        [3, 8, 0, 0, 0, 0, 0, 0, 0],
+        [0, 5, 0, 0, 1, 0, 6, 0, 0],
+        [0, 0, 0, 0, 5, 0, 0, 0, 7],
+        [0, 0, 0, 6, 2, 0, 0, 3, 0],
+        [6, 0, 1, 5, 0, 0, 0, 2, 0],
+        [2, 0, 0, 0, 0, 7, 0, 0, 8]
+    ]
+    hard = [
+        [0, 0, 0, 0, 0, 0, 8, 0, 4],
+        [0, 0, 9, 0, 6, 3, 0, 0, 7],
+        [2, 1, 0, 0, 0, 0, 0, 0, 0],
+        [3, 0, 0, 0, 2, 0, 0, 1, 0],
+        [0, 4, 0, 9, 0, 0, 0, 0, 0],
+        [0, 0, 6, 5, 3, 0, 0, 0, 0],
+        [0, 8, 0, 7, 0, 0, 0, 0, 0],
+        [6, 0, 0, 0, 4, 0, 2, 9, 0],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0]
+    ]
     
-    def __init__(self, rows, cols, width, height, win):
+    def __init__(self, rows, cols, width, height, win, difficulty="easy"):
         self.rows = rows
         self.cols = cols
-        self.cubes = [[Cube(self.board[i][j], i, j, width, height) for j in range(cols)] for i in range(rows)] # Creation of 2D array
         self.width = width
         self.height = height
         self.model = None
-        self.update_model()
         self.selected = None
         self.win = win
+
+        if difficulty == "beginner":
+            self.board = self.beginner
+        if difficulty == "easy":
+            self.board = self.easy
+        if difficulty == "medium":
+            self.board = self.medium
+        if difficulty == "hard":
+            self.board = self.hard
+        
+        # Creation of 2D array
+        self.cubes = [[Cube(self.board[i][j], i, j, width, height) for j in range(cols)] for i in range(rows)] 
+        self.update_model()
 
     def update_model(self): # Updates cells
         self.model = [[self.cubes[i][j].value for j in range(self.cols)] for i in range(self.rows)]
@@ -209,6 +253,46 @@ class Cube: # Each individual cell
         self.temp = val
 
 
+def draw_button(win, text, x, y, width, height, color):
+    pygame.draw.rect(win, color, (x, y, width, height))
+    
+    font = pygame.font.SysFont("comicsans", 35)
+    text_render = font.render(text, True, (0, 0, 0))
+    win.blit(text_render, (x + (width - text_render.get_width()) // 2, y + (height - text_render.get_height()) // 2))
+
+def select_board(win):
+    running = True
+    while running: 
+        win.fill((255, 255, 255))
+        
+        # Draw buttons
+        draw_button(win, "Beginner", 100, 100, 200, 50, (200, 200, 200))
+        draw_button(win, "Easy", 100, 200, 200, 50, (200, 200, 200))       
+        draw_button(win, "Medium", 100, 300, 200, 50, (200, 200, 200))     
+        draw_button(win, "Hard", 100, 400, 200, 50, (200, 200, 200))       
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+                pygame.quit()
+                return None
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_x, mouse_y = event.pos
+                if 100 <= mouse_x <= 300 and 100 <= mouse_y <= 150:
+                    return 'beginner'
+                if 100 <= mouse_x <= 300 and 200 <= mouse_y <= 250:
+                    return 'easy'
+                if 100 <= mouse_x <= 300 and 300 <= mouse_y <= 350:
+                    return 'medium'
+                if 100 <= mouse_x <= 300 and 400 <= mouse_y <= 450:
+                    return 'hard'
+
+        pygame.display.update()
+
+    return None
+
+
+
 def find_empty(bo): # Find next empty cell
     for i in range(len(bo)):
         for j in range(len(bo[0])):
@@ -242,6 +326,7 @@ def valid(bo, num, pos): # Finds number that isn't already in row, col., or box
 
 def redraw_window(win, board, time, strikes):
     win.fill((255, 255, 255))
+
     # Draw time
     fnt = pygame.font.SysFont("comicsans", 40)
     text = fnt.render("Time: " + format_time(time), 1, (0, 0, 0))
@@ -249,7 +334,7 @@ def redraw_window(win, board, time, strikes):
     
     # Draw Strikes
     text = fnt.render("X " * strikes, 1, (255, 0, 0))
-    win.blit(text, (20, 560)) # Determining where on window to draw strikesß
+    win.blit(text, (20, 560)) # Determining where on window to draw strikes
     
     # Draw grid and board
     board.draw()
@@ -266,7 +351,13 @@ def format_time(secs):
 def main():
     win = pygame.display.set_mode((800, 800)) # Size of window
     pygame.display.set_caption("Sudoku")
-    board = Grid(9, 9, 540, 540, win)
+
+    # Call board selector function
+    selected_difficulty = select_board(win)
+    if selected_difficulty is None:
+        return
+    
+    board = Grid(9, 9, 540, 540, win, selected_difficulty)
     key = None
     run = True
     start = time.time()
