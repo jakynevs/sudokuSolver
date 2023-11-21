@@ -374,97 +374,99 @@ def main():
                 if board.selected:
                     i, j = board.selected
 
-                    if event.key == pygame.K_1:
-                        if board.cubes[i][j].temp != 1:
-                            key = 1
-                        else:
-                            strikes = confirm_num(strikes, board, i, j)
-                    if event.key == pygame.K_2:
-                        if board.cubes[i][j].temp != 2:
-                            key = 2
-                        else:
-                            strikes = confirm_num(strikes, board, i, j)
-                    if event.key == pygame.K_3:
-                        if board.cubes[i][j].temp != 3:
-                            key = 3
-                        else:
-                            strikes = confirm_num(strikes, board, i, j)                    
-                    if event.key == pygame.K_4:
-                        if board.cubes[i][j].temp != 4:
-                            key = 4
-                        else:
-                            strikes = confirm_num(strikes, board, i, j)
-                    if event.key == pygame.K_5:
-                        if board.cubes[i][j].temp != 5:
-                            key = 5
-                        else:
-                            strikes = confirm_num(strikes, board, i, j)
-                    if event.key == pygame.K_6:
-                        if board.cubes[i][j].temp != 6:
-                            key = 6
-                        else:
-                            strikes = confirm_num(strikes, board, i, j)
-                    if event.key == pygame.K_7:
-                        if board.cubes[i][j].temp != 7:
-                            key = 7
-                        else:
-                            strikes = confirm_num(strikes, board, i, j)
-                    if event.key == pygame.K_8:
-                        if board.cubes[i][j].temp != 8:
-                            key = 8
-                        else:
-                            strikes = confirm_num(strikes, board, i, j)
-                    if event.key == pygame.K_9:
-                        if board.cubes[i][j].temp != 9:
-                            key = 9
-                        else:
-                            strikes = confirm_num(strikes, board, i, j)
-                    if event.key == pygame.K_KP1:
-                        if board.cubes[i][j].temp != 1:
-                            key = 1
-                        else:
-                            strikes = confirm_num(strikes, board, i, j)
-                    if event.key == pygame.K_KP2:
-                        if board.cubes[i][j].temp != 2:
-                            key = 2
-                        else:
-                            strikes = confirm_num(strikes, board, i, j)
-                    if event.key == pygame.K_KP3:
-                        if board.cubes[i][j].temp != 3:
-                            key = 3
-                        else:
-                            strikes = confirm_num(strikes, board, i, j)
-                    if event.key == pygame.K_KP4:
-                        if board.cubes[i][j].temp != 4:
-                            key = 4
-                        else:
-                            strikes = confirm_num(strikes, board, i, j)
-                    if event.key == pygame.K_KP5:
-                        if board.cubes[i][j].temp != 5:
-                            key = 5
-                        else:
-                            strikes = confirm_num(strikes, board, i, j)
-                    if event.key == pygame.K_KP6:
-                        if board.cubes[i][j].temp != 6:
-                            key = 6
-                        else:
-                            strikes = confirm_num(strikes, board, i, j)
-                    if event.key == pygame.K_KP7:
-                        if board.cubes[i][j].temp != 7:
-                            key = 7
-                        else:
-                            strikes = confirm_num(strikes, board, i, j)
-                    if event.key == pygame.K_KP8:
-                        if board.cubes[i][j].temp != 8:
-                            key = 8
-                        else:
-                            strikes = confirm_num(strikes, board, i, j)
-                    if event.key == pygame.K_KP9:
-                        if board.cubes[i][j].temp != 9:
-                            key = 9
-                        else:
-                            strikes = confirm_num(strikes, board, i, j)
-                    
+                    if board.cubes[i][j].value == 0:
+
+                        if event.key == pygame.K_1:
+                            if board.cubes[i][j].temp != 1:
+                                key = 1
+                            else:
+                                strikes = confirm_num(strikes, board, i, j)
+                        if event.key == pygame.K_2:
+                            if board.cubes[i][j].temp != 2:
+                                key = 2
+                            else:
+                                strikes = confirm_num(strikes, board, i, j)
+                        if event.key == pygame.K_3:
+                            if board.cubes[i][j].temp != 3:
+                                key = 3
+                            else:
+                                strikes = confirm_num(strikes, board, i, j)                    
+                        if event.key == pygame.K_4:
+                            if board.cubes[i][j].temp != 4:
+                                key = 4
+                            else:
+                                strikes = confirm_num(strikes, board, i, j)
+                        if event.key == pygame.K_5:
+                            if board.cubes[i][j].temp != 5:
+                                key = 5
+                            else:
+                                strikes = confirm_num(strikes, board, i, j)
+                        if event.key == pygame.K_6:
+                            if board.cubes[i][j].temp != 6:
+                                key = 6
+                            else:
+                                strikes = confirm_num(strikes, board, i, j)
+                        if event.key == pygame.K_7:
+                            if board.cubes[i][j].temp != 7:
+                                key = 7
+                            else:
+                                strikes = confirm_num(strikes, board, i, j)
+                        if event.key == pygame.K_8:
+                            if board.cubes[i][j].temp != 8:
+                                key = 8
+                            else:
+                                strikes = confirm_num(strikes, board, i, j)
+                        if event.key == pygame.K_9:
+                            if board.cubes[i][j].temp != 9:
+                                key = 9
+                            else:
+                                strikes = confirm_num(strikes, board, i, j)
+                        if event.key == pygame.K_KP1:
+                            if board.cubes[i][j].temp != 1:
+                                key = 1
+                            else:
+                                strikes = confirm_num(strikes, board, i, j)
+                        if event.key == pygame.K_KP2:
+                            if board.cubes[i][j].temp != 2:
+                                key = 2
+                            else:
+                                strikes = confirm_num(strikes, board, i, j)
+                        if event.key == pygame.K_KP3:
+                            if board.cubes[i][j].temp != 3:
+                                key = 3
+                            else:
+                                strikes = confirm_num(strikes, board, i, j)
+                        if event.key == pygame.K_KP4:
+                            if board.cubes[i][j].temp != 4:
+                                key = 4
+                            else:
+                                strikes = confirm_num(strikes, board, i, j)
+                        if event.key == pygame.K_KP5:
+                            if board.cubes[i][j].temp != 5:
+                                key = 5
+                            else:
+                                strikes = confirm_num(strikes, board, i, j)
+                        if event.key == pygame.K_KP6:
+                            if board.cubes[i][j].temp != 6:
+                                key = 6
+                            else:
+                                strikes = confirm_num(strikes, board, i, j)
+                        if event.key == pygame.K_KP7:
+                            if board.cubes[i][j].temp != 7:
+                                key = 7
+                            else:
+                                strikes = confirm_num(strikes, board, i, j)
+                        if event.key == pygame.K_KP8:
+                            if board.cubes[i][j].temp != 8:
+                                key = 8
+                            else:
+                                strikes = confirm_num(strikes, board, i, j)
+                        if event.key == pygame.K_KP9:
+                            if board.cubes[i][j].temp != 9:
+                                key = 9
+                            else:
+                                strikes = confirm_num(strikes, board, i, j)
+                        
                     # Manoeuvre grid with arrowpad
                     if event.key == pygame.K_UP:
                         if i > 0:
