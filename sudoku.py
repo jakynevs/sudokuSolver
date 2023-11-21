@@ -521,14 +521,8 @@ def main():
         
         # Function to confirm number in cell. Can be run through Enter or pressing number again to confirm entry
         def confirm_num(strikes, board, i, j):
-            if board.place(board.cubes[i][j].temp):
-                print("Success")
-            else:
-                print("Wrong")
+            if board.place(board.cubes[i][j].temp) == False:
                 strikes += 1
-
-            if board.is_finished():
-                print("Game over")
 
             return strikes
 
